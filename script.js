@@ -11,7 +11,7 @@ const holdBtn = document.querySelector('.btn--hold');
 const current0El = document.getElementById('current--0');
 const current1El = document.getElementById('current--1');
 
-const scores = [0, 0];
+let scores = [0, 0];
 let playing = true;
 
 // Function to switching player
@@ -21,6 +21,22 @@ const switchPlayer = function () {
   acticePlayer = acticePlayer === 0 ? 1 : 0;
   player0El.classList.toggle('player--active');
   player1El.classList.toggle('player--active');
+};
+
+// new game functionality
+
+const newGame = function () {
+  scores = [0, 0]; // Reset scores array
+  currentSrc = 0; // Reset current score
+  playing = true; // Set game back to playing
+  acticePlayer = 0; // Reset active player to Player 0
+
+  // 2. Update UI
+  diceEl.classList.add('hidden'); // Hide the dice
+  score0El.textContent = 0; // Reset Player 0's total score
+  score1El.textContent = 0; // Reset Player 1's total score
+  document.getElementById('current--0').textContent = 0; // Reset Player 0's current score
+  document.getElementById('current--1').textContent = 0; // Reset Player 1's current score
 };
 
 //Starting conditions
@@ -72,9 +88,13 @@ holdBtn.addEventListener('click', function () {
       document
         .querySelector(`.player--${acticePlayer}`)
         .classList.remove('player--active');
+      diceEl.classList.add('hidden');
     } else {
       //switch to the next player
       switchPlayer();
     }
   }
 });
+
+// Add new game functionality to th game
+newGameBtn.addEventListener('click', newGame);
